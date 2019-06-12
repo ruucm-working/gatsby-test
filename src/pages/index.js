@@ -4,7 +4,7 @@ import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
-import { Frame } from "framer"
+// import { Frame } from "framer"
 import styled from "styled-components"
 
 const Row = styled.div`
@@ -26,9 +26,14 @@ const Content = styled.div`
   height: 100%;
 `
 
+var Frame
 const IndexPage = ({ data, ...props }) => {
   console.log("data", data)
   const pages = data.allWordpressPage.edges
+
+  if (typeof window !== "undefined") {
+    Frame = require("framer").Frame
+  }
   return (
     <Layout>
       <SEO title={pages[0].node.title} />
@@ -41,19 +46,23 @@ const IndexPage = ({ data, ...props }) => {
         </Column>
         <Column>
           <Content>
-            <Frame
-              initial={{
-                top: -100,
-                opacity: 0,
-              }}
-              animate={{
-                top: 0,
-                opacity: 1,
-              }}
-            >
-              <p>Welcome to your new Gatsby site.</p>
-              <p>Now go build something great.</p>
-            </Frame>
+            {Frame ? (
+              <Frame
+                initial={{
+                  top: -100,
+                  opacity: 0,
+                }}
+                animate={{
+                  top: 0,
+                  opacity: 1,
+                }}
+              >
+                <p>Welcome to your new Gatsby site.</p>
+                <p>Now go build something great.</p>
+              </Frame>
+            ) : (
+              ""
+            )}
           </Content>
         </Column>
         <Column>
