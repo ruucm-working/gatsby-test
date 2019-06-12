@@ -26,6 +26,17 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allWordpressWpPin {
+        edges {
+          node {
+            id
+            title
+            excerpt
+            slug
+            date
+          }
+        }
+      }
     }
   `)
 
